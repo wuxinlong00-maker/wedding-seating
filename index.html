@@ -1,0 +1,87 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>婚礼座位图</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app">
+    <aside class="panel">
+      <div class="brand">
+        <div>
+          <p class="eyebrow">Wedding Seating</p>
+          <h1>婚礼座位图</h1>
+        </div>
+        <button class="icon-button" id="themeToggle" title="切换明暗">◐</button>
+      </div>
+
+      <section class="section">
+        <label class="field">
+          <span>搜索宾客 / 桌号</span>
+          <input id="searchInput" type="search" placeholder="例如：张三、12、主桌">
+        </label>
+        <div class="stats">
+          <div><strong id="tableCount">58</strong><span>桌</span></div>
+          <div><strong id="guestCount">0</strong><span>已填</span></div>
+          <div><strong id="seatCount">580</strong><span>座位</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">当前编辑</div>
+        <label class="field"><span>桌名 / 桌号</span><input id="tableNameInput" type="text" placeholder="第 1 桌"></label>
+        <label class="field"><span>座位编号</span><input id="seatIndexInput" type="text" readonly></label>
+        <label class="field"><span>宾客姓名</span><input id="guestNameInput" type="text" placeholder="输入姓名后自动保存"></label>
+        <div class="button-row">
+          <button id="clearSeatButton" class="secondary">清空座位</button>
+          <button id="nextEmptyButton">下个空位</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">工具</div>
+        <div class="button-grid">
+          <button id="addTableButton">加一桌</button>
+          <button id="removeTableButton" class="secondary">删末桌</button>
+          <button id="exportButton">导出 JSON</button>
+          <label class="file-button">导入 JSON<input id="importInput" type="file" accept="application/json"></label>
+          <button id="printButton">打印</button>
+          <button id="resetButton" class="danger">重置</button>
+        </div>
+      </section>
+
+      <section class="section note">数据会自动保存在当前浏览器里，刷新页面也不会丢。</section>
+    </aside>
+
+    <section class="workspace">
+      <div class="toolbar">
+        <div>
+          <p class="eyebrow">现场平面</p>
+          <h2>58 桌 × 每桌 10 人</h2>
+        </div>
+        <div class="view-controls" role="group" aria-label="视图">
+          <button class="view-button active" data-view="grid">总览</button>
+          <button class="view-button" data-view="compact">紧凑</button>
+          <button class="view-button" data-view="list">名单</button>
+        </div>
+      </div>
+      <div id="seatingMap" class="seating-map grid-view" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <template id="tableTemplate">
+    <article class="table-card">
+      <header><input class="table-name" type="text" aria-label="桌名"><span class="filled-count"></span></header>
+      <div class="seat-ring"></div>
+    </article>
+  </template>
+
+  <template id="seatTemplate">
+    <button class="seat" type="button"><span class="seat-number"></span><span class="guest-name"></span></button>
+  </template>
+
+  <script src="./app.js"></script>
+</body>
+</html>
